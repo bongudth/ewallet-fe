@@ -1,0 +1,30 @@
+.form-control,
+.custom-select {
+  color: $secondary;
+  border: 1px solid $secondary;
+}
+
+.b-form-btn-label-control.form-control > .form-control {
+  white-space: nowrap;
+}
+
+.form-control:disabled, .form-control[readonly],
+.b-form-btn-label-control.form-control[aria-disabled="true"],
+.b-form-btn-label-control.form-control[aria-readonly="true"] {
+  background-color: $pink-bg;
+}
+
+.b-form-spinbutton {
+  background-color: transparent;
+  border-radius: 15px;
+
+  .btn:hover {
+    color: $primary;
+  }
+}
+
+.input-group-text {
+  color: $secondary;
+  background-color: $grey;
+  border: 1px solid $secondary;
+}
