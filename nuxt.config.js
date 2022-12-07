@@ -105,10 +105,10 @@ export default {
       local: {
         tokenType: 'Bearer',
         user: {
-          property: 'data',
+          property: '',
         },
         endpoints: {
-          login: { url: '/auth/signin', method: 'post' },
+          login: { url: '/auth/login', method: 'post' },
           refresh: { url: '/refresh_tokens', method: 'post' },
           user: { url: '/users/me', method: 'get' },
         },
