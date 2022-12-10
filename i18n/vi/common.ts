@@ -2,6 +2,7 @@ export default {
   headerBar: {
     nav: {
       wallet: 'Ví của tôi',
+      categories: 'Danh mục',
     },
     lang: {
       en: 'English',

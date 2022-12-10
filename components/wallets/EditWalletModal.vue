@@ -60,6 +60,7 @@
 import Vue, { PropType } from 'vue';
 import { BvModalEvent } from 'bootstrap-vue';
 
+import { ApiResponseError } from '~/types/api';
 import { Validator } from '~/types/Validator';
 import { Wallet } from '~/types/Wallet';
 import { bvToastSuccess, bvToastError } from '~/utils/bvToast';
@@ -129,8 +130,15 @@ export default Vue.extend({
             this.isShown = false;
             bvToastSuccess(this.$t('wallet.edit.success') as string);
             this.$nuxt.refresh();
-          } catch (error) {
-            bvToastError(this.$t('wallet.edit.error') as string);
+          } catch (error: ApiResponseError | any) {
+            if (error.statusCode === 409) {
+              this.validator.setErrors({
+                name: [this.$t('wallet.edit.errorExist') as string],
+              });
+              bvToastError(this.$t('wallet.edit.errorExist') as string);
+            } else {
+              bvToastError(this.$t('wallet.edit.error') as string);
+            }
           } finally {
             this.$nuxt.$loading.finish();
           }

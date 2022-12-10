@@ -12,14 +12,16 @@ export default {
     balance: 'Số dư ban đầu',
   },
   new: {
-    title: 'Tạo ví mới',
+    title: 'Thêm ví',
     success: 'Tạo ví thành công',
     error: 'Tạo ví không thành công',
+    errorExist: 'Tên ví đã tồn tại',
   },
   edit: {
-    title: 'Chỉnh sửa thông tin ví',
+    title: 'Sửa ví',
     success: 'Chỉnh sửa thông tin ví thành công',
     error: 'Chỉnh sửa thông tin ví không thành công',
+    errorExist: 'Tên ví đã tồn tại',
   },
   delete: {
     title: 'Xóa ví',
