@@ -1,7 +1,7 @@
 export default {
   headerBar: {
     nav: {
-      transaction: 'Transaction',
+      wallet: 'My wallet',
     },
     lang: {
       en: 'English',
@@ -19,4 +19,11 @@ export default {
     signOutSuccessful: 'Sign out successful',
     signOutUnsuccessful: 'Sign out unsuccessful',
   },
+  button: {
+    cancel: 'Cancel',
+    create: 'Create',
+    delete: 'Delete',
+    update: 'Update',
+  },
+  copyToClipboard: 'Copy to clipboard',
 };

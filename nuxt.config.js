@@ -43,6 +43,10 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
 
+  router: {
+    middleware: ['auth'],
+  },
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/style-resources',
@@ -78,6 +82,7 @@ export default {
     '@nuxtjs/auth-next',
     '@nuxtjs/sentry',
     'cookie-universal-nuxt',
+    'nuxt-clipboard',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

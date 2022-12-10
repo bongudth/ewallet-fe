@@ -14,6 +14,11 @@
   background-color: $pink-bg;
 }
 
+.form-label.required::after {
+  content: ' *';
+  color: $danger;
+}
+
 .b-form-spinbutton {
   background-color: transparent;
   border-radius: 15px;

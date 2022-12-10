@@ -8,8 +8,8 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="/transactions">
-          {{ $t('headerBar.nav.transaction') }}
+        <b-nav-item href="/wallets">
+          {{ $t('headerBar.nav.wallet') }}
         </b-nav-item>
       </b-navbar-nav>
 
