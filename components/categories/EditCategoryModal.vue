@@ -2,20 +2,20 @@
   <b-modal
     v-model="isShown"
     centered
-    :title="$t('wallet.new.title')"
-    :ok-title="$t('button.create')"
+    :title="$t('category.edit.title')"
+    :ok-title="$t('button.update')"
     :cancel-title="$t('button.cancel')"
-    @ok="postWallet"
+    @ok="putCategory"
   >
     <ValidationObserver ref="validator" tag="div">
       <ValidationProvider
         v-slot="{ errors, passed, validated }"
         vid="name"
         rules="required"
-        :name="$t('wallet.label.name')"
+        :name="$t('category.label.name')"
       >
         <b-form-group
-          :label="$t('wallet.label.name')"
+          :label="$t('category.label.name')"
           label-for="name"
           label-class="form-label required"
           :invalid-feedback="errors[0]"
@@ -25,31 +25,27 @@
             id="name"
             v-model="form.name"
             type="text"
-            :placeholder="$t('wallet.placeholder.name')"
+            :placeholder="$t('category.placeholder.name')"
             :state="validated ? passed : null"
           />
         </b-form-group>
       </ValidationProvider>
       <ValidationProvider
         v-slot="{ errors, passed, validated }"
-        vid="balance"
-        :name="$t('wallet.label.balance')"
+        vid="type"
+        :name="$t('category.label.type')"
       >
         <b-form-group
-          :label="$t('wallet.label.balance')"
-          label-for="balance"
+          :label="$t('category.label.type')"
+          label-for="type"
           :invalid-feedback="errors[0]"
           :state="passed"
         >
-          <b-input-group append="VND">
-            <b-form-input
-              id="balance"
-              v-model="form.balance"
-              :placeholder="$t('wallet.placeholder.balance')"
-              :state="validated ? passed : null"
-              :formatter="formatPriceWithComma"
-            />
-          </b-input-group>
+          <b-form-select
+            v-model="form.type"
+            :options="typeOptions"
+            :state="validated ? passed : null"
+          ></b-form-select>
         </b-form-group>
       </ValidationProvider>
     </ValidationObserver>
@@ -57,33 +53,42 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import { BvModalEvent } from 'bootstrap-vue';
 
+import { CategoryType } from '~/constants';
 import { ApiResponseError } from '~/types/api';
 import { Validator } from '~/types/Validator';
+import { Category } from '~/types/Category';
 import { bvToastSuccess, bvToastError } from '~/utils/bvToast';
-import {
-  formatPriceWithComma,
-  formatPriceWithNumber,
-} from '~/utils/formatPrice';
 
 export default Vue.extend({
-  name: 'NewWalletModal',
+  name: 'EditCategoryModal',
 
   props: {
     value: {
       type: Boolean,
       default: false,
     },
+
+    category: {
+      type: Object as PropType<Category>,
+      default: () => ({} as Category),
+    },
   },
 
   data() {
     return {
-      form: {
-        name: '',
-        balance: 0,
-      },
+      typeOptions: [
+        {
+          value: CategoryType.EXPENSE,
+          text: this.$t('category.types.expense') as string,
+        },
+        {
+          value: CategoryType.INCOME,
+          text: this.$t('category.types.income') as string,
+        },
+      ],
     };
   },
 
@@ -97,42 +102,43 @@ export default Vue.extend({
       },
     },
 
+    form: {
+      get(): Category {
+        return { ...this.category };
+      },
+      set(value: Category) {
+        this.form = { ...value };
+      },
+    },
+
     validator(): Validator {
       return this.$refs.validator as Validator;
     },
   },
 
   methods: {
-    formatPriceWithComma,
-    formatPriceWithNumber,
-
-    postWallet(bvModalEvent: BvModalEvent) {
+    putCategory(bvModalEvent: BvModalEvent) {
       bvModalEvent.preventDefault();
 
       this.validator.validate().then(async (success) => {
         if (success) {
           try {
             this.$nuxt.$loading.start();
-            this.form = {
-              ...this.form,
-              balance: this.formatPriceWithNumber(this.form.balance.toString()),
-            };
-            await this.$services.wallets.create(this.form);
+            await this.$services.categories.update(
+              this.category.id.toString(),
+              this.form
+            );
             this.isShown = false;
-            bvToastSuccess(this.$t('wallet.new.success') as string);
+            bvToastSuccess(this.$t('category.edit.success') as string);
             this.$nuxt.refresh();
-            this.form = {
-              name: '',
-              balance: 0,
-            };
           } catch (error: ApiResponseError | any) {
             if (error.statusCode === 409) {
               this.validator.setErrors({
-                name: [this.$t('wallet.new.errorExist') as string],
+                name: [this.$t('category.edit.errorExist') as string],
               });
-              bvToastError(this.$t('wallet.new.errorExist') as string);
+              bvToastError(this.$t('category.edit.errorExist') as string);
             } else {
-              bvToastError(this.$t('wallet.new.error') as string);
+              bvToastError(this.$t('category.edit.error') as string);
             }
           } finally {
             this.$nuxt.$loading.finish();

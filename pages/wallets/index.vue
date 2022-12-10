@@ -1,12 +1,16 @@
 <template>
-  <div class="text-center">
+  <div>
     <TheTopBar>
       <template #title>
         <div>{{ $t('wallet.myWallets') }}</div>
       </template>
 
       <template #action>
-        <b-button variant="primary" @click="isShownNewWalletModal = true">
+        <b-button
+          variant="outline-primary"
+          @click="isShownNewWalletModal = true"
+        >
+          <IconPLus class="mr-1" />
           {{ $t('wallet.new.title') }}
         </b-button>
       </template>
@@ -18,7 +22,7 @@
       @delete="openDeleteModal"
     />
 
-    <NoData v-if="!hasWallets" />
+    <NoData v-if="!hasWallets" class="w-100 d-flex justify-content-center" />
 
     <NewWalletModal v-model="isShownNewWalletModal" />
     <EditWalletModal v-model="isShownEditWalletModal" :wallet="showingWallet" />
@@ -40,6 +44,7 @@ export default Vue.extend({
 
   components: {
     TheTopBar: () => import('~/components/partials/TheTopBar.vue'),
+    IconPLus: () => import('~/components/icons/IconPlus.vue'),
     WalletListTable: () => import('~/components/wallets/WalletListTable.vue'),
     NoData: () => import('~/components/icons/NoData.vue'),
     NewWalletModal: () => import('~/components/wallets/NewWalletModal.vue'),

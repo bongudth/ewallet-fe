@@ -2,6 +2,7 @@ export default {
   headerBar: {
     nav: {
       wallet: 'My wallet',
+      categories: 'Categories',
     },
     lang: {
       en: 'English',

@@ -71,9 +71,6 @@ export default class RestService<T> {
       if (hasFormErrors) {
         // eslint-disable-next-line no-param-reassign
         error.formErrors = formErrors;
-      } else {
-        const message = error.message || this.$app.i18n.t(error.message);
-        this.$app.$toast.error(String(message), { duration: 5000 });
       }
     }
 

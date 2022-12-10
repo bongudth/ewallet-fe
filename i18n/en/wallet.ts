@@ -15,11 +15,13 @@ export default {
     title: 'New wallet',
     success: 'Create wallet successfully',
     error: 'Create wallet unsuccessfully',
+    errorExist: 'Wallet name already exists',
   },
   edit: {
     title: 'Edit wallet',
     success: 'Edit wallet successfully',
     error: 'Edit wallet unsuccessfully',
+    errorExist: 'Wallet name already exists',
   },
   delete: {
     title: 'Delete wallet',

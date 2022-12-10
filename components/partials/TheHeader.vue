@@ -11,6 +11,9 @@
         <b-nav-item href="/wallets">
           {{ $t('headerBar.nav.wallet') }}
         </b-nav-item>
+        <b-nav-item href="/categories">
+          {{ $t('headerBar.nav.categories') }}
+        </b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
