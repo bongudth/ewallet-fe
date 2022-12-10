@@ -1,0 +1,36 @@
+.table-hover {
+  thead {
+    background-color: $pink-bg;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $grey;
+      transition: all 0.3s ease-in-out;
+    
+      &:hover {
+        background-color: $pink-bg;
+        border-bottom: 1px solid $primary;
+      }
+
+      td {
+        svg {
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          
+          &.edit {
+            &:hover {
+              color: $primary;
+            }
+          }
+
+          &.delete {
+            &:hover {
+              color: $danger;
+            }
+          }
+        }
+      }
+    }
+  }
+}

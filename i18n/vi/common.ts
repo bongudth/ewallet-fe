@@ -1,7 +1,7 @@
 export default {
   headerBar: {
     nav: {
-      transaction: 'Giao dịch',
+      wallet: 'Ví của tôi',
     },
     lang: {
       en: 'English',
@@ -19,4 +19,11 @@ export default {
     signOutSuccessful: 'Đăng xuất thành công',
     signOutUnsuccessful: 'Đăng xuất không thành công',
   },
+  button: {
+    cancel: 'Hủy',
+    create: 'Tạo',
+    delete: 'Xóa',
+    update: 'Cập nhật',
+  },
+  copyToClipboard: 'Sao chép',
 };

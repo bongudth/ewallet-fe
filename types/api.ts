@@ -6,16 +6,9 @@ export type ApiMeta = {
   currentPage: number;
 };
 
-export type ApiResponseList<T> = {
-  data: {
-    items: T[];
-    meta: ApiMeta;
-  };
-};
+export type ApiResponseList<T> = T[];
 
-export type ApiResponseData<T> = {
-  data: T;
-};
+export type ApiResponseData<T> = T;
 
 export type ApiResponseErrorMessage = {
   error: string;
