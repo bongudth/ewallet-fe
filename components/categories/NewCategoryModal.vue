@@ -56,7 +56,7 @@
 import Vue from 'vue';
 import { BvModalEvent } from 'bootstrap-vue';
 
-import { CategoryType } from '~/constants';
+import { TransactionType } from '~/constants';
 import { ApiResponseError } from '~/types/api';
 import { Validator } from '~/types/Validator';
 import { bvToastSuccess, bvToastError } from '~/utils/bvToast';
@@ -75,15 +75,15 @@ export default Vue.extend({
     return {
       form: {
         name: '',
-        type: CategoryType.EXPENSE,
+        type: TransactionType.EXPENSE,
       },
       typeOptions: [
         {
-          value: CategoryType.EXPENSE,
+          value: TransactionType.EXPENSE,
           text: this.$t('category.types.expense') as string,
         },
         {
-          value: CategoryType.INCOME,
+          value: TransactionType.INCOME,
           text: this.$t('category.types.income') as string,
         },
       ],
@@ -119,7 +119,7 @@ export default Vue.extend({
             this.$nuxt.refresh();
             this.form = {
               name: '',
-              type: CategoryType.EXPENSE,
+              type: TransactionType.EXPENSE,
             };
           } catch (error: ApiResponseError | any) {
             if (error.statusCode === 409) {

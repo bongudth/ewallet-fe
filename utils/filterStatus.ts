@@ -1,4 +1,6 @@
-const getStatusVariant = (status: string) => {
+import { TransactionType } from '~/constants';
+
+export const getStatusVariant = (status: string) => {
   switch (status) {
     case 'active':
       return 'success';
@@ -9,4 +11,15 @@ const getStatusVariant = (status: string) => {
   }
 };
 
-export default getStatusVariant;
+export const getTypeVariant = (type: string) => {
+  switch (type) {
+    case TransactionType.INCOME:
+      return 'success';
+    case TransactionType.EXPENSE:
+      return 'danger';
+    case TransactionType.TRANSFER:
+      return 'warning';
+    default:
+      return 'primary';
+  }
+};

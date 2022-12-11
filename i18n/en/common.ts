@@ -1,7 +1,7 @@
 export default {
   headerBar: {
     nav: {
-      wallet: 'My wallet',
+      wallet: 'My wallets',
       categories: 'Categories',
     },
     lang: {

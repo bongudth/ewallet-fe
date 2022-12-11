@@ -53,7 +53,7 @@
 import Vue from 'vue';
 import { Context } from '@nuxt/types';
 
-import { CategoryType } from '~/constants';
+import { TransactionType } from '~/constants';
 import { Category } from '~/types/Category';
 
 export default Vue.extend({
@@ -105,13 +105,13 @@ export default Vue.extend({
 
     expenseCategories(): Category[] {
       return this.categories.filter(
-        (category) => category.type === CategoryType.EXPENSE
+        (category) => category.type === TransactionType.EXPENSE
       );
     },
 
     incomeCategories(): Category[] {
       return this.categories.filter(
-        (category) => category.type === CategoryType.INCOME
+        (category) => category.type === TransactionType.INCOME
       );
     },
   },

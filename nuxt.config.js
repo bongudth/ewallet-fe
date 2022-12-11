@@ -37,7 +37,6 @@ export default {
     { src: '~/plugins/api-services' },
     { src: '~/plugins/vee-validate' },
     { src: '~/plugins/vue-select' },
-    { src: '~/plugins/vue-slick-carousel' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -80,7 +79,6 @@ export default {
     // https://i18n.nuxtjs.org/lazy-load-translations
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxtjs/sentry',
     'cookie-universal-nuxt',
     'nuxt-clipboard',
   ],

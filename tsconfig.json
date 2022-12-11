@@ -35,7 +35,6 @@
       "bootstrap-vue",
       "@nuxtjs/device",
       "cookie-universal-nuxt",
-      "@nuxtjs/sentry",
       "nuxt-clipboard"
     ]
   },

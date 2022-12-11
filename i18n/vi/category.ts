@@ -7,6 +7,7 @@ export default {
   types: {
     income: 'Thu nhập',
     expense: 'Chi tiêu',
+    transfer: 'Chuyển dịch',
   },
   placeholder: {
     name: 'Nhập tên danh mục',
