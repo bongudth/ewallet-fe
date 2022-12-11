@@ -1,16 +1,19 @@
 import { TransactionType } from '~/constants';
 
-export type Category = {
+export type Transaction = {
   id: number;
   createdAt: string;
   updatedAt: string;
   userId: number;
-  parentId: number | null;
-  name: string;
-  icon: string;
+  categoryId: number;
+  customCategory: string | null;
+  walletId: number;
+  amount: number;
+  fromWalletId: number;
+  toWalletId: number;
+  description: string;
   type:
     | TransactionType.EXPENSE
     | TransactionType.INCOME
     | TransactionType.TRANSFER;
-  children: Category[];
 };

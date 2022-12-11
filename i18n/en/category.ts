@@ -7,6 +7,7 @@ export default {
   types: {
     income: 'Income',
     expense: 'Expense',
+    transfer: 'Transfer',
   },
   placeholder: {
     name: 'Enter your category name',

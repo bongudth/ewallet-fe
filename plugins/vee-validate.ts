@@ -18,6 +18,7 @@ import {
   numeric,
   mimes,
   size,
+  is_not,
 } from 'vee-validate/dist/rules';
 import { Context } from '@nuxt/types';
 
@@ -36,6 +37,7 @@ extend('length', length);
 extend('numeric', numeric);
 extend('mimes', mimes);
 extend('size', size);
+extend('is_not', is_not);
 
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);

@@ -36,7 +36,7 @@ import Vue, { PropType } from 'vue';
 import { Wallet } from '~/types/Wallet';
 import { bvToastSuccess, bvToastError } from '~/utils/bvToast';
 import formatPrivateCode from '~/utils/formatCode';
-import getStatusVariant from '~/utils/filterStatus';
+import { getStatusVariant } from '~/utils/filterStatus';
 import formatDateTime from '~/utils/formatDateTime';
 import { formatPriceWithCurrency } from '~/utils/formatPrice';
 

@@ -56,7 +56,7 @@
 import Vue, { PropType } from 'vue';
 import { BvModalEvent } from 'bootstrap-vue';
 
-import { CategoryType } from '~/constants';
+import { TransactionType } from '~/constants';
 import { ApiResponseError } from '~/types/api';
 import { Validator } from '~/types/Validator';
 import { Category } from '~/types/Category';
@@ -81,11 +81,11 @@ export default Vue.extend({
     return {
       typeOptions: [
         {
-          value: CategoryType.EXPENSE,
+          value: TransactionType.EXPENSE,
           text: this.$t('category.types.expense') as string,
         },
         {
-          value: CategoryType.INCOME,
+          value: TransactionType.INCOME,
           text: this.$t('category.types.income') as string,
         },
       ],
