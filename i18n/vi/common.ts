@@ -3,6 +3,7 @@ export default {
     nav: {
       wallet: 'Ví của tôi',
       categories: 'Danh mục',
+      budgets: 'Ngân sách',
     },
     lang: {
       en: 'English',
