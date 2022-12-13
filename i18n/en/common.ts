@@ -3,6 +3,7 @@ export default {
     nav: {
       wallet: 'My wallets',
       categories: 'Categories',
+      budgets: 'Budgets',
     },
     lang: {
       en: 'English',

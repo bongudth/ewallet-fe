@@ -63,7 +63,7 @@ export default Vue.extend({
           label: this.$t('transaction.label.type'),
         },
         {
-          key: 'category',
+          key: 'category.name',
           label: this.$t('transaction.label.category'),
         },
         {

@@ -23,6 +23,7 @@
         :options="walletOptions"
         @change="pushRouterWalletId"
       ></b-form-select>
+      <div class="ml-2">{{ formatPriceWithCurrency(currentBalance) }}</div>
     </div>
 
     <TransactionListTable :items="transactionsByWallet" />
@@ -48,6 +49,7 @@ import { Context } from '@nuxt/types';
 import { Category } from '~/types/Category';
 import { Transaction } from '~/types/Transaction';
 import { Wallet } from '~/types/Wallet';
+import { formatPriceWithCurrency } from '~/utils/formatPrice';
 
 export default Vue.extend({
   name: 'Transaction',
@@ -103,6 +105,12 @@ export default Vue.extend({
         (transaction) => transaction.walletId === this.walletId
       );
     },
+
+    currentBalance(): number {
+      return (
+        this.wallets.find((wallet) => wallet.id === this.walletId)?.balance || 0
+      );
+    },
   },
 
   created() {
@@ -112,6 +120,8 @@ export default Vue.extend({
   },
 
   methods: {
+    formatPriceWithCurrency,
+
     pushRouterWalletId() {
       this.$router.push({
         query: {
