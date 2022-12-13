@@ -16,26 +16,22 @@
       </template>
     </TheTopBar>
 
-    <div class="d-flex align-items-end mb-4">
-      <div class="text-large mr-2">{{ $t('transaction.label.wallet') }}</div>
-      <b-form-select
-        v-model="walletId"
-        :options="walletOptions"
-        @change="pushRouterWalletId"
-      ></b-form-select>
+    <div class="d-flex align-items-center mb-4">
+      <div class="text-large mr-2">
+        {{ $t('transaction.label.totalBalance') }}
+      </div>
       <div class="ml-2">{{ formatPriceWithCurrency(currentBalance) }}</div>
     </div>
 
-    <TransactionListTable :items="transactionsByWallet" />
+    <TransactionListTable :items="transactions" />
 
     <NoData
-      v-if="!transactionsByWallet.length"
+      v-if="!transactions.length"
       class="w-100 d-flex justify-content-center"
     />
 
     <NewTransactionModal
       v-model="isShownNewTransactionModal"
-      :wallet-id="walletId"
       :wallets="wallets"
       :categories="categories"
     />
@@ -86,29 +82,16 @@ export default Vue.extend({
       hasWallets: false,
       transactions: [] as Transaction[],
       isShownNewTransactionModal: false,
-      walletId: Number(this.$route.query.walletId),
       wallets: [] as Wallet[],
       categories: [] as Category[],
     };
   },
 
   computed: {
-    walletOptions(): { value: number; text: string }[] {
-      return this.wallets.map((wallet) => ({
-        value: wallet.id,
-        text: wallet.name,
-      }));
-    },
-
-    transactionsByWallet(): Transaction[] {
-      return this.transactions.filter(
-        (transaction) => transaction.walletId === this.walletId
-      );
-    },
-
     currentBalance(): number {
-      return (
-        this.wallets.find((wallet) => wallet.id === this.walletId)?.balance || 0
+      return this.wallets.reduce(
+        (acc, wallet) => acc + Number(wallet.balance),
+        0
       );
     },
   },
@@ -121,14 +104,6 @@ export default Vue.extend({
 
   methods: {
     formatPriceWithCurrency,
-
-    pushRouterWalletId() {
-      this.$router.push({
-        query: {
-          walletId: this.walletId.toString(),
-        },
-      });
-    },
   },
 });
 </script>

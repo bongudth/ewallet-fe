@@ -8,7 +8,6 @@ import Vue, { PropType } from 'vue';
 import { Category } from '~/types/Category';
 import { Wallet } from '~/types/Wallet';
 import joinObjectArray from '~/utils/common';
-import formatDateTime from '~/utils/formatDateTime';
 import { formatPriceWithCurrency } from '~/utils/formatPrice';
 
 export default Vue.extend({
@@ -37,11 +36,6 @@ export default Vue.extend({
           key: 'used',
           label: this.$t('budget.label.used'),
           formatter: (value: number) => formatPriceWithCurrency(value),
-        },
-        {
-          key: 'createdAt',
-          label: this.$t('budget.label.createdAt'),
-          formatter: (value: string) => formatDateTime(value),
         },
         {
           key: 'wallets',
