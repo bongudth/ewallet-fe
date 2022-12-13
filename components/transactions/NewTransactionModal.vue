@@ -8,13 +8,26 @@
     @ok="postTransaction"
   >
     <ValidationObserver ref="validator" tag="div">
-      <b-form-group :label="$t('transaction.label.wallet')" label-for="wallet">
-        <b-form-select
-          disabled
-          :value="walletId"
-          :options="walletOptions"
-        ></b-form-select>
-      </b-form-group>
+      <ValidationProvider
+        v-slot="{ errors, passed, validated }"
+        vid="walletId"
+        :name="$t('transaction.label.wallet')"
+        rules="required"
+      >
+        <b-form-group
+          :label="$t('transaction.label.wallet')"
+          label-for="walletId"
+          label-class="form-label required"
+          :invalid-feedback="errors[0]"
+          :state="passed"
+        >
+          <b-form-select
+            v-model="form.walletId"
+            :options="walletOptions"
+            :state="validated ? passed : null"
+          ></b-form-select>
+        </b-form-group>
+      </ValidationProvider>
       <ValidationProvider
         v-slot="{ errors, passed, validated }"
         vid="amount"
@@ -173,11 +186,6 @@ export default Vue.extend({
       default: false,
     },
 
-    walletId: {
-      type: Number,
-      required: true,
-    },
-
     wallets: {
       type: Array as PropType<Wallet[]>,
       required: true,
@@ -193,7 +201,7 @@ export default Vue.extend({
     return {
       TransactionType,
       form: {
-        walletId: this.walletId,
+        walletId: undefined as number | undefined,
         amount: 0,
         type: TransactionType.EXPENSE,
         categoryId: undefined as number | undefined,
@@ -269,7 +277,7 @@ export default Vue.extend({
             bvToastSuccess(this.$t('transaction.new.success') as string);
             this.$nuxt.refresh();
             this.form = {
-              walletId: this.walletId,
+              walletId: undefined,
               amount: 0,
               type: TransactionType.EXPENSE,
               categoryId: undefined,

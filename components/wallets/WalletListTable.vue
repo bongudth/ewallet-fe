@@ -9,8 +9,17 @@
       </b-badge>
     </template>
 
+    <template #cell(webhookUrl)="{ value }">
+      <IconCopy class="edit" @click.native="copyWebhookUrl(value)" />
+    </template>
+
     <template #cell(edit)="{ item }">
-      <IconPencil class="edit" @click.native="emitEdit(item.id)" />
+      <IconPencil
+        v-b-tooltip.hover
+        :title="$t('copyToClipboard')"
+        class="edit"
+        @click.native="emitEdit(item.id)"
+      />
     </template>
 
     <template #cell(delete)="{ item }">
@@ -23,6 +32,7 @@
 import Vue, { PropType } from 'vue';
 
 import { Wallet } from '~/types/Wallet';
+import { bvToastSuccess, bvToastError } from '~/utils/bvToast';
 import { getStatusVariant } from '~/utils/filterStatus';
 import formatDateTime from '~/utils/formatDateTime';
 import { formatPriceWithCurrency } from '~/utils/formatPrice';
@@ -31,6 +41,7 @@ export default Vue.extend({
   name: 'WalletListTable',
 
   components: {
+    IconCopy: () => import('~/components/icons/IconCopy.vue'),
     IconPencil: () => import('~/components/icons/IconPencil.vue'),
     IconTrash: () => import('~/components/icons/IconTrash.vue'),
   },
@@ -64,6 +75,10 @@ export default Vue.extend({
           label: this.$t('wallet.label.status'),
         },
         {
+          key: 'webhookUrl',
+          label: '',
+        },
+        {
           key: 'edit',
           label: '',
         },
@@ -77,6 +92,15 @@ export default Vue.extend({
 
   methods: {
     getStatusVariant,
+
+    async copyWebhookUrl(url: string) {
+      try {
+        await this.$copyText(url);
+        bvToastSuccess(this.$t('wallet.webhook.copy.success') as string);
+      } catch (error) {
+        bvToastError(this.$t('wallet.webhook.copy.error') as string);
+      }
+    },
 
     emitEdit(id: string) {
       this.$emit('edit', id);

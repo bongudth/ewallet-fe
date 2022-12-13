@@ -1,6 +1,7 @@
 export default {
   transactionHistory: 'Transaction history',
   label: {
+    totalBalance: 'Total balance',
     wallet: 'Wallet',
     createdAt: 'Date',
     amount: 'Amount',
