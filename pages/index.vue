@@ -18,9 +18,11 @@
 
     <div class="d-flex align-items-center mb-4">
       <div class="text-large mr-2">
-        {{ $t('transaction.label.totalBalance') }}
+        {{ $t('transaction.label.totalBalance') }}:
       </div>
-      <div class="ml-2">{{ formatPriceWithCurrency(currentBalance) }}</div>
+      <div class="text-super font-weight-bold">
+        {{ formatPriceWithCurrency(currentBalance) }}
+      </div>
     </div>
 
     <TransactionListTable :items="transactions" />

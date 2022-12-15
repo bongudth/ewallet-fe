@@ -7,6 +7,7 @@ export type Budget = {
   updatedAt: string;
   name: string;
   amount: number;
+  used: number;
   categories: Category[] | string[];
   wallets: Wallet[] | string[];
 };

@@ -1,17 +1,36 @@
 <template>
-  <b-table hover :fields="fields" :items="items"> </b-table>
+  <b-table
+    hover
+    :fields="fields"
+    :items="items"
+    class="cursor-pointer"
+    @row-clicked="onRowClicked"
+  >
+    <template #cell(percentage)="{ item }">
+      <b-progress>
+        <b-progress-bar
+          :value="getPercentage(item.amount, item.used).value"
+          :variant="getPercentage(item.amount, item.used).variant"
+          striped
+          :label="`${getPercentage(item.amount, item.used).value.toFixed(0)}%`"
+          :animated="true"
+        ></b-progress-bar>
+      </b-progress>
+    </template>
+  </b-table>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 
+import { Budget } from '~/types/Budget';
 import { Category } from '~/types/Category';
 import { Wallet } from '~/types/Wallet';
-import joinObjectArray from '~/utils/common';
+import { joinObjectArray, getPercentage } from '~/utils/common';
 import { formatPriceWithCurrency } from '~/utils/formatPrice';
 
 export default Vue.extend({
-  name: 'WalletListTable',
+  name: 'BudgetListTable',
 
   props: {
     items: {
@@ -47,17 +66,19 @@ export default Vue.extend({
           label: this.$t('budget.label.categories'),
           formatter: (value: Category[]) => joinObjectArray(value, 'name'),
         },
+        {
+          key: 'percentage',
+          label: this.$t('budget.label.percentage'),
+        },
       ],
     };
   },
 
   methods: {
-    emitEdit(id: string) {
-      this.$emit('edit', id);
-    },
+    getPercentage,
 
-    emitDelete(id: string) {
-      this.$emit('delete', id);
+    onRowClicked(item: Budget) {
+      this.$emit('row-clicked', item.id);
     },
   },
 });

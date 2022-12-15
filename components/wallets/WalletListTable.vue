@@ -10,16 +10,16 @@
     </template>
 
     <template #cell(webhookUrl)="{ value }">
-      <IconCopy class="edit" @click.native="copyWebhookUrl(value)" />
-    </template>
-
-    <template #cell(edit)="{ item }">
-      <IconPencil
+      <IconCopy
         v-b-tooltip.hover
         :title="$t('copyToClipboard')"
         class="edit"
-        @click.native="emitEdit(item.id)"
+        @click.native="copyWebhookUrl(value)"
       />
+    </template>
+
+    <template #cell(edit)="{ item }">
+      <IconPencil class="edit" @click.native="emitEdit(item.id)" />
     </template>
 
     <template #cell(delete)="{ item }">
@@ -34,7 +34,7 @@ import Vue, { PropType } from 'vue';
 import { Wallet } from '~/types/Wallet';
 import { bvToastSuccess, bvToastError } from '~/utils/bvToast';
 import { getStatusVariant } from '~/utils/filterStatus';
-import formatDateTime from '~/utils/formatDateTime';
+import { formatDateTime } from '~/utils/formatDateTime';
 import { formatPriceWithCurrency } from '~/utils/formatPrice';
 
 export default Vue.extend({
