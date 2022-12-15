@@ -7,5 +7,5 @@ export const formatDateTime = (timestamp: string) => {
 
 export const formatDateSlash = (timestamp: Date | string) => {
   const date = new Date(timestamp);
-  return `${date.getDate()}/${date.getMonth()}`;
+  return `${date.getDate()}/${date.getMonth() + 1}`;
 };
