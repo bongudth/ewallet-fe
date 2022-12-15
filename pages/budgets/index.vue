@@ -29,6 +29,7 @@
     <BudgetDetailModal
       v-model="isShownBudgetDetailModal"
       :budget="showingBudget"
+      @hide="onHideBudgetDetailModal"
     />
   </div>
 </template>
@@ -106,6 +107,11 @@ export default Vue.extend({
   methods: {
     onRowClicked(id: number) {
       this.showingBudgetId = id;
+    },
+
+    onHideBudgetDetailModal() {
+      this.isShownBudgetDetailModal = false;
+      this.showingBudgetId = undefined;
     },
   },
 });

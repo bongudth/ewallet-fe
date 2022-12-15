@@ -1,5 +1,11 @@
 <template>
-  <b-modal v-model="isShown" centered :title="budget.name" hide-footer>
+  <b-modal
+    v-model="isShown"
+    centered
+    :title="budget.name"
+    hide-footer
+    @hide="onHide"
+  >
     <div class="d-flex align-items-center">
       <IconCalendar class="mr-2" />
       <div class="font-weight-bold mr-1">{{ $t('budget.label.time') }}:</div>
@@ -17,7 +23,13 @@
     <div class="d-flex align-items-center mt-2">
       <IconUsed class="mr-2" />
       <div class="font-weight-bold mr-1">{{ $t('budget.label.remain') }}:</div>
-      <div>{{ formatPriceWithCurrency(budget.amount - budget.used) }}</div>
+      <div>
+        {{
+          formatPriceWithCurrency(
+            budget.amount - budget.used > 0 ? budget.amount - budget.used : 0
+          )
+        }}
+      </div>
     </div>
     <b-progress height="2rem" class="mt-2">
       <b-progress-bar
@@ -55,9 +67,9 @@
         {{ $t('budget.label.recommendSpend') }}:
       </div>
       <div>
-        {{ formatPriceWithCurrency(recommendSpend) }}/{{
-          $t('budget.label.day')
-        }}
+        {{
+          formatPriceWithCurrency(recommendSpend > 0 ? recommendSpend : 0)
+        }}/{{ $t('budget.label.day') }}
       </div>
     </div>
     <div class="d-flex align-items-center mt-2">
@@ -147,6 +159,10 @@ export default Vue.extend({
 
     expensePlan(): number {
       return this.actualExpense * this.endDate.getDate();
+    },
+
+    onHide() {
+      this.$emit('hide');
     },
   },
 });
