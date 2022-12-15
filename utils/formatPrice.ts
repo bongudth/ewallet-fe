@@ -1,8 +1,15 @@
 import { TransactionType } from '~/constants';
 
 export const formatPriceWithComma = (price: string) => {
-  const formattedPrice = price.replace(/\D/g, '');
-  return formattedPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const priceWithoutComma = price.replace(/,/g, '');
+  const regex = /(?<sign>-?)(?<number>\d+)/;
+  const { groups } = regex.exec(priceWithoutComma) || {};
+  if (!groups) {
+    return price;
+  }
+
+  const { sign, number } = groups;
+  return `${sign}${number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 };
 
 export const formatPriceWithCurrency = (price: number) => {

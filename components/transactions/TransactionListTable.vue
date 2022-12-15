@@ -1,5 +1,11 @@
 <template>
-  <b-table hover :fields="fields" :items="items">
+  <b-table
+    hover
+    :fields="fields"
+    :items="items"
+    :sort-by.sync="sortBy"
+    :sort-desc.sync="sortDesc"
+  >
     <template #cell(amount)="{ item }">
       <div :class="`text-${getTypeVariant(item.type)}`">
         {{
@@ -22,6 +28,10 @@
         {{ $t(`category.types.${value}`) }}
       </b-badge>
     </template>
+
+    <template #cell(category)="{ item }">
+      {{ item.category?.name || item.customCategory }}
+    </template>
   </b-table>
 </template>
 
@@ -31,7 +41,7 @@ import Vue, { PropType } from 'vue';
 import { TransactionType } from '~/constants';
 import { Transaction } from '~/types/Transaction';
 import { getTypeVariant } from '~/utils/filterStatus';
-import formatDateTime from '~/utils/formatDateTime';
+import { formatDateTime } from '~/utils/formatDateTime';
 import { formatPriceWithTransactionType } from '~/utils/formatPrice';
 
 export default Vue.extend({
@@ -51,6 +61,7 @@ export default Vue.extend({
           key: 'createdAt',
           label: this.$t('transaction.label.createdAt'),
           formatter: (value: string) => formatDateTime(value),
+          sortable: true,
         },
         {
           key: 'amount',
@@ -63,7 +74,7 @@ export default Vue.extend({
           label: this.$t('transaction.label.type'),
         },
         {
-          key: 'category.name',
+          key: 'category',
           label: this.$t('transaction.label.category'),
         },
         {
@@ -71,14 +82,16 @@ export default Vue.extend({
           label: this.$t('transaction.label.description'),
         },
         {
-          key: 'fromWallet',
+          key: 'fromWallet.name',
           label: this.$t('transaction.label.fromWallet'),
         },
         {
-          key: 'toWallet',
+          key: 'toWallet.name',
           label: this.$t('transaction.label.toWallet'),
         },
       ],
+      sortBy: 'createdAt',
+      sortDesc: true,
       TransactionType,
     };
   },
